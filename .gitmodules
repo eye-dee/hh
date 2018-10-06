@@ -1,0 +1,3 @@
+[submodule "hh-config"]
+	path = hh-config
+	url = https://github.com/sausageRoll/hh-config.git
