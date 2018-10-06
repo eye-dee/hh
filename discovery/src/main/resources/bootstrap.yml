@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: discovery
+  cloud:
+    config:
+      uri: http://${CONFIG_URL:localhost}:8888
+  datasource:
+    url: jdbc:postgresql://localhost:5432/discovery
+    username: discovery
+    password: discovery
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+server:
+  port: 8082

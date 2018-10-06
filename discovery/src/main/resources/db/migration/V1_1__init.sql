@@ -1,0 +1,5 @@
+CREATE TABLE segment
+(
+  id BIGSERIAL PRIMARY KEY
+);
+
