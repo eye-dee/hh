@@ -19,7 +19,8 @@ feign:
         loggerLevel: full
 
 discovery:
-  url: http://${DISCOVERY_URL:localhost}:8082/
+  host: ${DISCOVERY_URL:localhost}
+  port: 8082
 
 eureka:
   client:

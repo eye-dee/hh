@@ -42,45 +42,45 @@ services:
     depends_on:
       - config
       - db
-#
-#  loader1:
-#    image: hh-loader:latest
-#    links:
-#      - mongo
-#      - discovery
-#    environment:
-#      MONGO_HOST: mongo
-#      DISCOVERY_URL: "discovery:8082"
-#      CONFIG_URL: config
-#    depends_on:
-#      - mongo
-#      - config
-#      - discovery
-#
-#  loader2:
-#    image: hh-loader:latest
-#    links:
-#      - mongo
-#      - discovery
-#    environment:
-#      MONGO_HOST: mongo
-#      DISCOVERY_URL: "discovery:8082"
-#      CONFIG_URL: config
-#    depends_on:
-#      - mongo
-#      - config
-#      - discovery
-#
-#  loader3:
-#    image: hh-loader:latest
-#    links:
-#      - mongo
-#      - discovery
-#    environment:
-#      MONGO_HOST: mongo
-#      DISCOVERY_URL: "discovery:8082"
-#      CONFIG_URL: config
-#    depends_on:
-#      - mongo
-#      - config
-#      - discovery
+
+  loader1:
+    image: hh-loader:latest
+    links:
+      - mongo
+      - discovery
+    environment:
+      MONGO_HOST: mongo
+      DISCOVERY_URL: discovery
+      CONFIG_URL: config
+    depends_on:
+      - mongo
+      - config
+      - discovery
+
+  loader2:
+    image: hh-loader:latest
+    links:
+      - mongo
+      - discovery
+    environment:
+      MONGO_HOST: mongo
+      DISCOVERY_URL: discovery
+      CONFIG_URL: config
+    depends_on:
+      - mongo
+      - config
+      - discovery
+
+  loader3:
+    image: hh-loader:latest
+    links:
+      - mongo
+      - discovery
+    environment:
+      MONGO_HOST: mongo
+      DISCOVERY_URL: discovery
+      CONFIG_URL: config
+    depends_on:
+      - mongo
+      - config
+      - discovery

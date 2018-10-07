@@ -1,0 +1,72 @@
+{
+  "_id": "14365",
+  "description": "В компанию &quot;Диасофт&quot;, лидер российского рынка производства ПО для финансово-кредитных организаций, приглашается прикладной программист-разработчик на Java.\r<br />\n\r<br />\nОбласть деятельности: \r<br />\nучастие в разработке систем автоматизации различных финансовых институтов, разработка баз данных, \r<br />\nразработка прикладных программ для финансовой сферы.\r<br />\n\r<br />\nТребования к кандидату: \r<br />\nМужчина 22 – 37 лет, \r<br />\nвысшее техническое образование, \r<br />\nпредставления об архитектуре и реализации современных информационных систем, \r<br />\nзнание языка программирования Java (опыт не менее 1 года);  \r<br />\nзнание EJB и T-SQL;  \r<br />\nзнание Java-сервлетов; \r<br />\nфильтров, JSP, пользовательских тегов JSP;  \r<br />\nопыт Web разработки на основе MVC подхода. Struts; \r<br />\nзнание web-технологий (HTML, CSS , JavaScript);  \r<br />\nзнание принципов работы XML/XSL;\r<br />\nопыт использования серверов приложений JBOSS и Web-сервера Tomcat, \r<br />\nопыт конфигурирования; знание JBuilder; VSS, Ant; \r<br />\nзнание методологии разработки UML (умение работать с готовыми диаграммами, читать и понимать нотации).\r<br />\n\r<br />\nРабота в хорошо оборудованном, современном офисе в коллективе квалифицированных специалистов, обеды за счёт компании, аренда спортивных сооружений для сотрудников компании и другие социальные льготы.\r<br />\n\r<br />\nОбязательно резюме по электронной почте с указанием координат, имени, фамилии, отчества.\r<br />\nПросьба указывать знание различных ПО и опыт работы в них.",
+  "schedule": {
+    "_id": "fullDay",
+    "name": "Полный день"
+  },
+  "acceptHandicapped": false,
+  "acceptKids": false,
+  "experience": {
+    "_id": "between1And3",
+    "name": "От 1 года до 3 лет"
+  },
+  "alternateUrl": "https://hh.ru/vacancy/14365",
+  "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=14365",
+  "employment": {
+    "_id": "full",
+    "name": "Полная занятость"
+  },
+  "salary": {
+    "to": 1000,
+    "from": 0,
+    "gross": false,
+    "currency": "USD"
+  },
+  "archived": true,
+  "name": "Программист на Java",
+  "area": {
+    "_id": "1",
+    "url": "https://api.hh.ru/areas/1",
+    "name": "Москва"
+  },
+  "publishedAt": ISODate(
+  "2003-11-26T09:57:05Z"
+  ),
+  "employer": {
+    "_id": "154",
+    "name": "Diasoft",
+    "url": "https://api.hh.ru/employers/154",
+    "alternateUrl": "https://hh.ru/employer/154",
+    "trusted": true,
+    "blacklisted": false,
+    "logo_urls": {
+      "original": "https://hhcdn.ru/employer-logo-original/233652.JPG",
+      "240": "https://hhcdn.ru/employer-logo/655155.jpeg",
+      "90": "https://hhcdn.ru/employer-logo/655154.jpeg"
+    }
+  },
+  "responseLetterRequired": true,
+  "type": {
+    "_id": "open",
+    "name": "Открытая"
+  },
+  "hasTest": false,
+  "specializations": [
+    {
+      "_id": "1.221",
+      "profareaId": "1",
+      "profareaName": "Информационные технологии, интернет, телеком",
+      "name": "Программирование, Разработка"
+    }
+  ],
+  "billingType": {
+    "_id": "standard",
+    "name": "Стандарт"
+  },
+  "allowMessages": true,
+  "premium": false,
+  "driverLicenseTypes": [],
+  "accept_incomplete_resumes": false,
+  "_class": "ico.hh.model.Vacancy"
+}
