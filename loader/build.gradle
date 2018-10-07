@@ -41,7 +41,7 @@ dependencyManagement {
 
 docker {
     springBootApplication {
-        baseImage = 'openjdk:11-jdk-slim'
+        baseImage = 'openjdk:10-jdk-slim'
         tag = 'hh-loader:latest'
     }
 }
@@ -65,6 +65,8 @@ dependencies {
 //    compile 'org.elasticsearch.client:transport:6.4.1'
 //    compile 'org.elasticsearch:elasticsearch:6.4.1'
 //    compile group: 'org.springframework.data', name: 'spring-data-elasticsearch', version: '3.1.0.RELEASE'
+
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-feign', version: '1.4.5.RELEASE'
 
     compile 'com.fasterxml.jackson.module:jackson-module-parameter-names'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'

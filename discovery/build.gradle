@@ -37,8 +37,8 @@ ext {
 
 docker {
     springBootApplication {
-        baseImage = 'openjdk:11-jdk-slim'
-        tag = 'discovery:latest'
+        baseImage = 'openjdk:10-jdk-slim'
+        tag = 'hh-discovery:latest'
     }
 }
 

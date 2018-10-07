@@ -7,6 +7,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -18,15 +19,16 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class HeadHunterLoader implements CommandLineRunner {
 
-  private static final AtomicInteger COUNTER = new AtomicInteger(1);
-  private static final AtomicInteger FINISHED = new AtomicInteger(10);
-  private static final AtomicInteger SUCCEED = new AtomicInteger(0);
+  private static final AtomicLong COUNTER = new AtomicLong(1);
+  private static final AtomicLong FINISHED = new AtomicLong(10);
+  private static final AtomicLong SUCCEED = new AtomicLong(0);
 
   private static final ScheduledExecutorService EXECUTOR_SERVICE =
       new ScheduledThreadPoolExecutor(1);
 
   private final HeadHunterService headHunterService;
   private final VacancyRepository repository;
+  private final EdgeService edgeService;
 
   public void loadVacancy() {
     try {
@@ -46,7 +48,7 @@ public class HeadHunterLoader implements CommandLineRunner {
           })
               .subscribe(v -> {
                 repository.save(v);
-                log.info("saved");
+                log.info("saved with id {}", v.getId());
                 FINISHED.incrementAndGet();
                 SUCCEED.incrementAndGet();
               });
@@ -56,11 +58,35 @@ public class HeadHunterLoader implements CommandLineRunner {
     } catch (RuntimeException ex) {
       log.info("exception caught", ex);
     }
+
+    if (COUNTER.get() <= edgeService.end()) {
+      repeatLoad();
+    } else {
+      scheduleGenerate();
+    }
+  }
+
+  private void scheduleGenerate() {
+    if (edgeService.generateEdge()) {
+      scheduleLoad();
+    } else {
+      EXECUTOR_SERVICE.schedule(this::scheduleGenerate, 1, TimeUnit.SECONDS);
+    }
   }
 
   @Override
-  public void run(String... args) throws Exception {
-    EXECUTOR_SERVICE.scheduleWithFixedDelay(
-        this::loadVacancy, 10, 1, TimeUnit.SECONDS);
+  public void run(String... args) {
+    scheduleGenerate();
+  }
+
+  private void scheduleLoad() {
+    COUNTER.set(edgeService.start());
+
+    repeatLoad();
+  }
+
+  private void repeatLoad() {
+    EXECUTOR_SERVICE.schedule(
+        this::loadVacancy, 1, TimeUnit.SECONDS);
   }
 }
