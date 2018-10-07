@@ -1,12 +1,9 @@
 package ico.hh.service;
 
 import ico.hh.repository.VacancyRepository;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,27 +29,39 @@ public class HeadHunterLoader implements CommandLineRunner {
 
   public void loadVacancy() {
     try {
-      if (FINISHED.get() >= 10 && SUCCEED.incrementAndGet() > 2) {
-        SUCCEED.set(0);
-        FINISHED.set(0);
+      if (FINISHED.get() >= 10) {
+        if (SUCCEED.incrementAndGet() > 2) {
+          SUCCEED.set(0);
+          FINISHED.set(0);
 
-        for (var i = 0; i < 10; i++) {
-          headHunterService.vacancy(COUNTER.getAndIncrement(), c -> {
-            SUCCEED.decrementAndGet();
-            FINISHED.incrementAndGet();
-            return Mono.empty();
-          }, c -> {
-            SUCCEED.incrementAndGet();
-            FINISHED.incrementAndGet();
-            return Mono.empty();
-          })
-              .subscribe(v -> {
-                repository.save(v);
-                log.info("saved with id {}", v.getId());
-                FINISHED.incrementAndGet();
-                SUCCEED.incrementAndGet();
-              });
+          for (var i = 0; i < 10; i++) {
+            headHunterService.vacancy(COUNTER.getAndIncrement(), c -> {
+              log.warn("error with status code {}", c.statusCode());
+              SUCCEED.decrementAndGet();
+              FINISHED.incrementAndGet();
+              return Mono.empty();
+            }, c -> {
+              log.info("notFound");
+              SUCCEED.incrementAndGet();
+              FINISHED.incrementAndGet();
+              return Mono.empty();
+            })
+                .subscribe(v -> {
+                  try {
+                    repository.save(v);
+                  } catch (RuntimeException e) {
+                    log.error("error ", e);
+                    log.error("with id {}", v.getId());
+                  }
+                  log.info("saved with id {}", v.getId());
+                  FINISHED.incrementAndGet();
+                  SUCCEED.incrementAndGet();
+                });
 
+          }
+        } else {
+          log.warn("SUCCEED too low");
+          SUCCEED.incrementAndGet();
         }
       }
     } catch (RuntimeException ex) {
