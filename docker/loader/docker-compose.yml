@@ -84,3 +84,17 @@ services:
       - mongo
       - config
       - discovery
+
+  loader4:
+    image: hh-loader:latest
+    links:
+      - mongo
+      - discovery
+    environment:
+      MONGO_HOST: mongo
+      DISCOVERY_URL: discovery
+      CONFIG_URL: config
+    depends_on:
+      - mongo
+      - config
+      - discovery

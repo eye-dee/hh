@@ -16,8 +16,9 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class HeadHunterLoader implements CommandLineRunner {
 
+  private static final int LOAD_PER_TIME = 20;
   private static final AtomicLong COUNTER = new AtomicLong(1);
-  private static final AtomicLong FINISHED = new AtomicLong(10);
+  private static final AtomicLong FINISHED = new AtomicLong(LOAD_PER_TIME);
   private static final AtomicLong SUCCEED = new AtomicLong(0);
 
   private static final ScheduledExecutorService EXECUTOR_SERVICE =
@@ -29,12 +30,12 @@ public class HeadHunterLoader implements CommandLineRunner {
 
   public void loadVacancy() {
     try {
-      if (FINISHED.get() >= 10) {
+      if (FINISHED.get() >= LOAD_PER_TIME) {
         if (SUCCEED.incrementAndGet() > 2) {
           SUCCEED.set(0);
           FINISHED.set(0);
 
-          for (var i = 0; i < 10; i++) {
+          for (var i = 0; i < LOAD_PER_TIME; i++) {
             headHunterService.vacancy(COUNTER.getAndIncrement(), c -> {
               log.warn("error with status code {}", c.statusCode());
               SUCCEED.decrementAndGet();
@@ -96,6 +97,6 @@ public class HeadHunterLoader implements CommandLineRunner {
 
   private void repeatLoad() {
     EXECUTOR_SERVICE.schedule(
-        this::loadVacancy, 1, TimeUnit.SECONDS);
+        this::loadVacancy, 500, TimeUnit.MILLISECONDS);
   }
 }
