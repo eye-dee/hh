@@ -1,0 +1,65 @@
+{
+  "aggregate": "vacancy",
+  "pipeline": [
+    {
+      "$match": {
+        "salary.currency": "USD"
+      }
+    },
+    {
+      "$group": {
+        "_id": {
+          "area": "$area.name",
+          "year": {
+            "$year": "$publishedAt"
+          }
+        },
+        "averageSalary": {
+          "$avg": {
+            "$divide": [
+              {
+                "$sum": [
+                  "$salary.to",
+                  "$salary.from"
+                ]
+              },
+              2
+            ]
+          }
+        },
+        "maxSalary": {
+          "$max": {
+            "$divide": [
+              {
+                "$sum": [
+                  "$salary.to",
+                  "$salary.from"
+                ]
+              },
+              2
+            ]
+          }
+        },
+        "minSalary": {
+          "$min": {
+            "$divide": [
+              {
+                "$sum": [
+                  "$salary.to",
+                  "$salary.from"
+                ]
+              },
+              2
+            ]
+          }
+        }
+      }
+    },
+    {
+      "$sort": {
+        "_id.maxSalary": -1
+      }
+    }
+  ],
+  "cursor": {}
+}
