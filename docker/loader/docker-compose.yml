@@ -2,14 +2,14 @@ version: '3.6'
 
 services:
 
-  db:
-    image: postgres
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_DB: discovery
-      POSTGRES_PASSWORD: discovery
-      POSTGRES_USER: discovery
+  # db:
+  #   image: postgres
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     POSTGRES_DB: discovery
+  #     POSTGRES_PASSWORD: discovery
+  #     POSTGRES_USER: discovery
 
   mongo:
     image: mongo:latest
@@ -23,78 +23,78 @@ services:
       - 27017:27017
     command: mongod --smallfiles --logpath=/dev/null # --quiet
 
-  config:
-    image: hh-config:latest
-    ports:
-      - "8888:8888"
-    environment:
-      DISCOVERY_HOST: discovery
+  # config:
+  #   image: hh-config:latest
+  #   ports:
+  #     - "8888:8888"
+  #   environment:
+  #     DISCOVERY_HOST: discovery
 
-  discovery:
-    image: hh-discovery:latest
-    links:
-      - config
-    ports:
-      - "8082:8082"
-    environment:
-      CONFIG_URL: config
-      DB_HOST: db
-    depends_on:
-      - config
-      - db
+  # discovery:
+  #   image: hh-discovery:latest
+  #   links:
+  #     - config
+  #   ports:
+  #     - "8082:8082"
+  #   environment:
+  #     CONFIG_URL: config
+  #     DB_HOST: db
+  #   depends_on:
+  #     - config
+  #     - db
 
-  loader1:
-    image: hh-loader:latest
-    links:
-      - mongo
-      - discovery
-    environment:
-      MONGO_HOST: mongo
-      DISCOVERY_URL: discovery
-      CONFIG_URL: config
-    depends_on:
-      - mongo
-      - config
-      - discovery
+  # loader1:
+  #   image: hh-loader:latest
+  #   links:
+  #     - mongo
+  #     - discovery
+  #   environment:
+  #     MONGO_HOST: mongo
+  #     DISCOVERY_URL: discovery
+  #     CONFIG_URL: config
+  #   depends_on:
+  #     - mongo
+  #     - config
+  #     - discovery
 
-  loader2:
-    image: hh-loader:latest
-    links:
-      - mongo
-      - discovery
-    environment:
-      MONGO_HOST: mongo
-      DISCOVERY_URL: discovery
-      CONFIG_URL: config
-    depends_on:
-      - mongo
-      - config
-      - discovery
+  # loader2:
+  #   image: hh-loader:latest
+  #   links:
+  #     - mongo
+  #     - discovery
+  #   environment:
+  #     MONGO_HOST: mongo
+  #     DISCOVERY_URL: discovery
+  #     CONFIG_URL: config
+  #   depends_on:
+  #     - mongo
+  #     - config
+  #     - discovery
 
-  loader3:
-    image: hh-loader:latest
-    links:
-      - mongo
-      - discovery
-    environment:
-      MONGO_HOST: mongo
-      DISCOVERY_URL: discovery
-      CONFIG_URL: config
-    depends_on:
-      - mongo
-      - config
-      - discovery
+  # loader3:
+  #   image: hh-loader:latest
+  #   links:
+  #     - mongo
+  #     - discovery
+  #   environment:
+  #     MONGO_HOST: mongo
+  #     DISCOVERY_URL: discovery
+  #     CONFIG_URL: config
+  #   depends_on:
+  #     - mongo
+  #     - config
+  #     - discovery
 
-  loader4:
-    image: hh-loader:latest
-    links:
-      - mongo
-      - discovery
-    environment:
-      MONGO_HOST: mongo
-      DISCOVERY_URL: discovery
-      CONFIG_URL: config
-    depends_on:
-      - mongo
-      - config
-      - discovery
+  # loader4:
+  #   image: hh-loader:latest
+  #   links:
+  #     - mongo
+  #     - discovery
+  #   environment:
+  #     MONGO_HOST: mongo
+  #     DISCOVERY_URL: discovery
+  #     CONFIG_URL: config
+  #   depends_on:
+  #     - mongo
+  #     - config
+  #     - discovery

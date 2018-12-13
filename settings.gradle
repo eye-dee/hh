@@ -2,4 +2,4 @@ rootProject.name = 'hh'
 include 'config'
 include 'discovery'
 include 'loader'
-
+include 'analytic'

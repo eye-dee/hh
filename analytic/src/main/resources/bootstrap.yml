@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    config:
+      uri: http://${CONFIG_URL:localhost}:8888
+      name: hh-analytic
+      discovery:
+        service-id: config
+      enabled: true
+  data:
+    mongodb:
+      host: ${MONGO_HOST:localhost}
+
+feign:
+  client:
+    config:
+      feignName:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+
+discovery:
+  host: ${DISCOVERY_URL:localhost}
+  port: 8082
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${DISCOVERY_URL:localhost}:8082/eureka/
